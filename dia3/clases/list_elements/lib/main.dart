@@ -1,19 +1,21 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp(
-    items: List<ListItem>.generate(
-      1000,
-      (i) => i % 6 == 0
-          ? HeadingItem("Cabecera $i")
-          : MessageItem("Detalle $i", "Mensaje del detalle $i"),
+  runApp(
+    MyApp(
+      items: List<ListItem>.generate(
+        1000,
+        (i) => i % 6 == 0
+            ? HeadingItem('Heading $i')
+            : MessageItem('Sender $i', 'Message body $i'),
+      ),
     ),
-  ));
+  );
 }
 
 class MyApp extends StatelessWidget {
   final List<ListItem> items;
+
   const MyApp({Key? key, required this.items}) : super(key: key);
 
   @override
@@ -27,26 +29,14 @@ class MyApp extends StatelessWidget {
           title: const Text(title),
         ),
         body: ListView.builder(
-          // Deja que ListView sepa cuántos elementos necesita para construir
           itemCount: items.length,
-          // Proporciona una función de constructor. ¡Aquí es donde sucede la magia! Vamos a
-          // convertir cada elemento en un Widget basado en el tipo de elemento que es.
           itemBuilder: (context, index) {
             final item = items[index];
 
-            if (item is HeadingItem) {
-              return ListTile(
-                title: Text(
-                  item.heading,
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-              );
-            } else if (item is MessageItem) {
-              return ListTile(
-                title: Text(item.sender),
-                subtitle: Text(item.body),
-              );
-            }
+            return ListTile(
+              title: item.buildTitle(context),
+              subtitle: item.buildSubtitle(context),
+            );
           },
         ),
       ),
@@ -54,20 +44,38 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// La clase base para los diferentes tipos de elementos que la Lista puede contener
-abstract class ListItem {}
+abstract class ListItem {
+  Widget buildTitle(BuildContext context);
 
-// Un ListItem que contiene datos para mostrar un encabezado
+  Widget buildSubtitle(BuildContext context);
+}
+
 class HeadingItem implements ListItem {
   final String heading;
 
   HeadingItem(this.heading);
+
+  @override
+  Widget buildTitle(BuildContext context) {
+    return Text(
+      heading,
+      style: Theme.of(context).textTheme.headline5,
+    );
+  }
+
+  @override
+  Widget buildSubtitle(BuildContext context) => const SizedBox.shrink();
 }
 
-// Un ListItem que contiene datos para mostrar un mensaje
 class MessageItem implements ListItem {
   final String sender;
   final String body;
 
   MessageItem(this.sender, this.body);
+
+  @override
+  Widget buildTitle(BuildContext context) => Text(sender);
+
+  @override
+  Widget buildSubtitle(BuildContext context) => Text(body);
 }
