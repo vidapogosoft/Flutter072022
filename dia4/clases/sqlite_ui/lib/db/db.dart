@@ -49,11 +49,7 @@ class Db {
   //Insert
   static addClientToDatabase(Client client) async {
     Database database = await openDB();
-    var table = await database.rawQuery("SELECT MAX(id)+1 as id FROM Client");
-    int? id = table.first["id"] as int?;
-    client.id = id!;
-    var raw = await database.insert("Client", client.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    var raw = await database.insert("Client", client.toMap());
     return raw;
   }
 
