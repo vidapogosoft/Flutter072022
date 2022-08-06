@@ -70,7 +70,7 @@ class Db {
 
   //Delete with id
   static deleteClientWithId(int id) async {
-    Database database = await Db.openDB();
+    Database database = await openDB();
     return database.delete("Client", where: "id = ?", whereArgs: [id]);
   }
 }
