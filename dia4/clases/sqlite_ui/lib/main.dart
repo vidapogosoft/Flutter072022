@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sqlite_ui/add_client.dart';
+import 'package:sqlite_ui/add_editclient.dart';
 
 import 'package:sqlite_ui/model/client_model.dart';
 import 'package:sqlite_ui/db/db.dart';
@@ -52,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14.0,
-                      color: Colors.black)),
+                      color: Colors.white)),
             )
           ],
         ),
@@ -76,7 +77,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         title: Text(item.name),
                         subtitle: Text(item.phone),
                         leading: CircleAvatar(child: Text(item.id.toString())),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AddEditClient(
+                                    true,
+                                    client: item,
+                                  )));
+                        },
                       ),
                     );
                   });
