@@ -7,7 +7,6 @@ class Client {
 
   //Para insertar los datos en la bd, necesitamos convertirlo en un Map
   Map<String, dynamic> toMap() => {
-        "id": id,
         "name": name,
         "phone": phone,
       };

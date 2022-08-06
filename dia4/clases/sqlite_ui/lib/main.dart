@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:sqlite_ui/add_client.dart';
 
 import 'package:sqlite_ui/model/client_model.dart';
 import 'package:sqlite_ui/db/db.dart';
@@ -85,6 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add), onPressed: () {}));
+            child: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const AddClient()));
+            }));
   }
 }
