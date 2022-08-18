@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/example/tuti_handheld/BuildConfig.java
+ com.example.tuti_handheld.BuildConfig
